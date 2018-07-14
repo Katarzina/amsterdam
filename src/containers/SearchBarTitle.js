@@ -15,7 +15,7 @@ class SearchBarTitle extends Component {
     dataSearch = e => {
         const { establishment: {dataUnchangable, establishmentSelect}, updateFilterEstablishment } = this.props;
         const value = e.target.value.toLowerCase();
-        let filterEstablishment = establishmentSelect.filter( ({title}) => {
+        let filterEstablishment = dataUnchangable.filter( ({title}) => {
             return title.toLowerCase().includes(value);
         });
         updateFilterEstablishment(filterEstablishment);

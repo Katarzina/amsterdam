@@ -23,18 +23,14 @@ class LoadData extends React.Component {
     }
 
     componentDidMount() {
-        const { establishment: { establishmentSelect, eventSelect, isLoaded } = {}, receiveQuery} = this.props
-        if (!establishmentSelect && !isLoaded) receiveQuery( REQUEST + ESTABLISHMENT , DATA_ESTABLISHMENT )
-        if (!eventSelect) receiveQuery( REQUEST + EVENT , DATA_EVENT )
+        const { establishment: { establishmentSelect } = {}, receiveQuery} = this.props
+        if (!establishmentSelect) receiveQuery( REQUEST + ESTABLISHMENT , DATA_ESTABLISHMENT )
+        receiveQuery( REQUEST + EVENT , DATA_EVENT )
     }
 
     render() {
 
-        const { establishment: {establishmentSelect, isLoaded} = {}} = this.props
-
-        if (!isLoaded) {
-            return <h2><Loading /></h2>
-        }
+        const { establishment: {establishmentSelect} = {}} = this.props
 
         if (!establishmentSelect) {
             return null

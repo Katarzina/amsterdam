@@ -39,7 +39,7 @@ class SearchBarCity extends Component {
         if (selectedOption) {
             selectedOption.forEach((option) => {
 
-                filterEstablishment = establishmentSelect.filter(({location: {city}}) => {
+                filterEstablishment = dataUnchangable.filter(({location: {city}}) => {
                     return city.toLowerCase().includes(option.value.toLowerCase());
                 })
 

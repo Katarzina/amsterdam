@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { updateArrayEstablishment, loadInfoEstablishment, loadCoordinate } from '../action'
 import {connect} from 'react-redux'
 import {stateSelector, currentSelector} from '../reducer/establishment'
+import {restaurantDetailsSelection, coordinate} from '../reducer/details'
 import InfoEstablishment from '../components/Info/InfoEstablishment'
 
 const Item = ({children}) => ( <td className="item">{children}</td> )
@@ -67,7 +68,7 @@ class SortTable extends Component {
 
     render() {
 
-        const { establishment: {establishmentSelect, restaurantDetails = {} } } = this.props
+        const { establishment: {establishmentSelect }, details: restaurantDetails = {} } = this.props
         console.log(establishmentSelect);
         //console.log("loadInfo",restaurantDetails);
         return (
@@ -108,6 +109,7 @@ class SortTable extends Component {
 }
 export default connect((state) => ({
    establishment: stateSelector(state),
-   establishmentSelect: currentSelector(state)
+   establishmentSelect: currentSelector(state),
+   details: restaurantDetailsSelection
 }),{updateArrayEstablishment, loadInfoEstablishment, loadCoordinate})(SortTable)
 

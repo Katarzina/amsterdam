@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 //import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { stateSelector, eventSelector} from '../reducer/establishment'
 import { calculateDistance, commaToPointReplace } from '../share/share'
+import {coordinateSelection} from '../reducer/details'
+import {eventsSelection} from '../reducer/events'
 
 const Item = ({children}) => ( <td className="item">{children}</td> )
 
@@ -15,7 +16,7 @@ class EventsInfo extends Component {
 
     render() {
 
-        const { establishment: {eventsSelect, coordinate = {}} } = this.props
+        const { events: {eventsSelect}, details: {coordinate = {}} } = this.props
         let eventsSelectWithCoordinate = {};
         if (!eventsSelect || !eventsSelectWithCoordinate) {
             return null
@@ -57,7 +58,7 @@ class EventsInfo extends Component {
 }
 
 export default connect((state) => ({
-   establishment: stateSelector(state),
-   eventsSelect: eventSelector(state)
+   events: eventsSelection,
+   details: coordinateSelection
 }))(EventsInfo)
 
