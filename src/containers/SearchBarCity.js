@@ -32,14 +32,14 @@ class SearchBarCity extends Component {
     }
 
     handleChange = (selectedOption) => {
-        const {establishment: {dataUnchangable}, updateFilterEstablishment} = this.props;
+        const {establishment: {dataUnchangable, establishmentSelect}, updateFilterEstablishment} = this.props;
         this.setState({selectedOption});
         let joinEstablishment = [], filterEstablishment = [];
         // selectedOption can be null when the `x` (close) button is clicked
         if (selectedOption) {
             selectedOption.forEach((option) => {
 
-                filterEstablishment = dataUnchangable.filter(({location: {city}}) => {
+                filterEstablishment = establishmentSelect.filter(({location: {city}}) => {
                     return city.toLowerCase().includes(option.value.toLowerCase());
                 })
 
@@ -52,12 +52,12 @@ class SearchBarCity extends Component {
     }
 
     render() {
-        const { establishment: { dataUnchangable} } = this.props;
+        const { establishment: { dataUnchangable } } = this.props;
         const cities = getArrayCity(dataUnchangable);
         const { selectedOption } = this.state;
         const optionsValue = [];
         cities.forEach( item => optionsValue.push({ value: item, label: item }))
-        console.log(optionsValue)
+       // console.log(optionsValue)
         return (
             <div>
             <Select

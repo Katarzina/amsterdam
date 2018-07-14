@@ -6,8 +6,17 @@ import App from './App'
 import configureStore from "./store"
 import { Provider } from "react-redux"
 import registerServiceWorker from './registerServiceWorker'
+//import MapGoogle from './containers/MapGoogle'
+
 
 const store = configureStore()
+
+/*ReactDOM.render(
+    <Provider store = {store}>
+        <App />
+    </Provider>
+    , document.getElementById('root'))
+registerServiceWorker()*/
 
 ReactDOM.render(
     <Provider store = {store}>

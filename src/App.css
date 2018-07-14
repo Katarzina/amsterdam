@@ -7,12 +7,12 @@
 }
 
 thead {
-  background: lightblue;
+  background: red;
   color: #000;
 }
 
 table {
-  text-align: left;
+  text-align: center;
 }
 
 tr {

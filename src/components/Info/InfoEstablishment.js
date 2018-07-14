@@ -1,34 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const InfoEstablishment = (...rest) => {
+const InfoEstablishment = ({restaurantDetails}) => {
 
-    console.log(...rest)
+    let { title, city, adress, zipCode, urls } = restaurantDetails
 
-    const TreeObject = (obj) => {
+    const mediaArray = restaurantDetails.media;
 
-        if (typeof obj === "object") {
-            for (let p in obj) {
-                console.log("object", p, obj[p]);
-                TreeObject(obj[p]);
-            }
-        } else {
-            console.log(obj)
-        }
-    }
+    if (!mediaArray) return null
 
-    /*establishment.map( (i, index) => { TreeObject(i) })*/
-
-	/*const {value, currency, rate} = props*/
-		return <div>
-
+		return <div className="row">
+               <div className="col-md-3">
+                   {title} {city}  {adress} {zipCode}
+               </div>
+               <ul className="col-md-6">
+                {mediaArray.map((item, index) => <img src={item.url} alt={title} width='100' />)}
+               </ul>
+               <ul className="col-md-3">
+                   {urls}
+               </ul>
         </div>
 }
 
-InfoEstablishment.propTypes = {
+
+/*InfoEstablishment.propTypes = {
     value: PropTypes.string,
     currency: PropTypes.string,
     rate: PropTypes.number
-}
+}*/
 
 export default InfoEstablishment

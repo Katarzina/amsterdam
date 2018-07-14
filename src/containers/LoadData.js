@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import SortTable from './SortTable'
 import {Loading} from '../components/Loading/Loading'
 import {receiveQuery} from '../action/index'
+import DATA_ESTABLISHMENT from '../data/establishment-data.json'
+import DATA_EVENT from '../data/events-data.json'
 import SearchBarTitle from './SearchBarTitle'
 import SearchBarCity from './SearchBarCity'
-import DATA_ESTABLISHMENT from '../data/establishment-data.json'
+import SortTable from './SortTable'
+import {
+    REQUEST, ESTABLISHMENT, EVENT
+} from '../constants'
+//import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 
 
 class LoadData extends React.Component {
@@ -18,11 +23,13 @@ class LoadData extends React.Component {
     }
 
     componentDidMount() {
-        const { establishment: { establishmentSelect, isLoaded } = {}, receiveQuery} = this.props
-        if (!establishmentSelect && !isLoaded) receiveQuery( DATA_ESTABLISHMENT )
+        const { establishment: { establishmentSelect, eventSelect, isLoaded } = {}, receiveQuery} = this.props
+        if (!establishmentSelect && !isLoaded) receiveQuery( REQUEST + ESTABLISHMENT , DATA_ESTABLISHMENT )
+        if (!eventSelect) receiveQuery( REQUEST + EVENT , DATA_EVENT )
     }
 
     render() {
+
         const { establishment: {establishmentSelect, isLoaded} = {}} = this.props
 
         if (!isLoaded) {
@@ -35,17 +42,11 @@ class LoadData extends React.Component {
 
         return (
             <div>
-            <div className="col-md-8 table-sort">
                 <SearchBarTitle />
                 <SearchBarCity />
                 <SortTable />
             </div>
-            <div className="col-md-4">
-                {/* <InfoEstablishment /> */}
-            </div>
-            </div>
         );
-
     }
 }
 
