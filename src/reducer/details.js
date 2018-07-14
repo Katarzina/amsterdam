@@ -22,6 +22,5 @@ export default (state, action) => {
 };
 
 export const coordinateSelection = (state) => state['details'];
-
 export const restaurantDetailsSelection = (state) => state['details.restaurantDetails'];
 

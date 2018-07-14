@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {stateSelector, currentSelector} from '../reducer/establishment'
 import {restaurantDetailsSelection, coordinate} from '../reducer/details'
 import InfoEstablishment from '../components/Info/InfoEstablishment'
+import { selectedEventSelector } from "../reducer/events";
 
 const Item = ({children}) => ( <td className="item">{children}</td> )
 

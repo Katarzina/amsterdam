@@ -10,7 +10,9 @@ export default (state, action) => {
 
     switch (type) {
         case REQUEST + EVENT:
-            return merge(state, {eventsSelect: payload})
+            return {
+                ...state, eventsSelect: payload
+            }
         default:
             return state;
     }

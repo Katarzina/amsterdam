@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { calculateDistance, commaToPointReplace } from '../share/share'
 import {coordinateSelection} from '../reducer/details'
-import {eventsSelection} from '../reducer/events'
+import {stateSelector as eventSelector} from '../reducer/events'
 
 const Item = ({children}) => ( <td className="item">{children}</td> )
 
@@ -58,7 +58,7 @@ class EventsInfo extends Component {
 }
 
 export default connect((state) => ({
-   events: eventsSelection,
-   details: coordinateSelection
+   events: eventSelector(state),
+   details: coordinateSelection(state)
 }))(EventsInfo)
 
