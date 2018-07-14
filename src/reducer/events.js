@@ -1,23 +1,23 @@
 import {
     EVENT, REQUEST
 } from '../constants';
+import get from "lodash/get";
+import {createSelector} from 'reselect';
+import {merge} from '../utils';
 
 export default (state, action) => {
     const {type, payload} = action
-    //console.log(type, payload)
-    switch (type) {
 
+    switch (type) {
         case REQUEST + EVENT:
-            return {
-                ...state,
-                eventsSelect: payload
-            }
+            return merge(state, {eventsSelect: payload})
         default:
             return state;
     }
 };
 
-export const eventsSelection = (state) => state['events'];
+export const stateSelector = (state) => get(state, 'events', {});
+export const selectedEventSelector = createSelector(stateSelector, (reducer) => get(reducer, 'eventsSelect', {}));
 
 
 

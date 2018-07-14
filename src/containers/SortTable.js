@@ -110,6 +110,7 @@ class SortTable extends Component {
 export default connect((state) => ({
    establishment: stateSelector(state),
    establishmentSelect: currentSelector(state),
-   details: restaurantDetailsSelection
+   details: restaurantDetailsSelection,
+   selectedEvent: selectedEventSelector(state)
 }),{updateArrayEstablishment, loadInfoEstablishment, loadCoordinate})(SortTable)
 
