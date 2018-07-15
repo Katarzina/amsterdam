@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import { updateArrayEstablishment, loadInfoEstablishment, loadCoordinate } from '../action'
 import {connect} from 'react-redux'
 import {stateSelector, currentSelector} from '../reducer/establishment'
-import {restaurantDetailsSelection, coordinate} from '../reducer/details'
+import {restaurantDetailsSelector, coordinate} from '../reducer/details'
 import InfoEstablishment from '../components/Info/InfoEstablishment'
 import { selectedEventSelector } from "../reducer/events";
 
@@ -16,13 +16,15 @@ class SortTable extends Component {
         updateRate: PropTypes.func
     }*/
 
-    sorted = { location: { zipcode: true }, dates: { startdate: true }  }
+    sortedCondition = { location: { zipcode: true }, dates: { startdate: true }  }
 
-    sort(level1,level2) {
+    sort = (level1,level2) => {
         const { establishmentSelect, updateArrayEstablishment } = this.props
+
+       // establishmentSelect.forEach( (item) => console.log(item.dates.startdate, typeof item.dates.startdate));
         // get sorting order
 
-        let isSorted = this.sorted[level1][level2];
+        let isSorted = this.sortedCondition[level1][level2];
 
         // set direction
         let direction = isSorted ? 1 : -1;
@@ -30,31 +32,34 @@ class SortTable extends Component {
         // create new data array for update state
         // and make sorting
         const sorted = [].slice.call(establishmentSelect).sort((a, b) => {
-           // let aSort = a, bSort = b;
-           // console.log(a[level1][level2]);
-           /* const arraySplit = (aString = '') => {
-                if (isNaN(aString)) { aString = '' }
-                console.log(aString.split('-'));
-                return aString.split('-');
-            };
-            if (level1 === 'dates') {
-                //console.log(a[level1][level2] )
-                let aArray = arraySplit(a[level1][level2]);
-                let bArray = arraySplit(b[level1][level2]);
-                //console.log(aArray, bArray)
-               // console.log(aArray[2],aArray[1],aArray[0])
-                let aDate = new Date(+aArray[2],+aArray[1],+aArray[0])
-                let bDate = new Date(+bArray[2],+bArray[1],+bArray[0])
-               // console.log(aDate, bDate)
-                a[level1][level2] = +aDate;
-                b[level1][level2] = +bDate;
-            }*/
 
-            if (a[level1][level2] === b[level1][level2]) {
-                return 0; }
-            return a[level1][level2] > b[level1][level2] ? direction : direction * -1;
+            let aSort = a[level1][level2], bSort = b[level1][level2]
+
+            /// if sort date - other method of sort
+            if (level1 === 'dates' && level2 === 'startdate') {
+
+                let aDate, bDate, valueArray
+
+                const arraySplit = aString => aString.split('-')
+
+                const checkType = value => (typeof value == 'undefined') ? new Date(1970, 0, 1) :
+                                           (typeof value === 'string') ? ( ((value.includes('-'))) ?
+                                           (valueArray = arraySplit(value), new Date(+valueArray[2], +valueArray[1], +valueArray[0]))
+                                           : value ) : value;
+
+                aDate = +checkType(aSort)
+
+                bDate = +checkType(bSort)
+
+                return (aDate === bDate) ? false : aDate > bDate ? direction : direction * -1
+
+            }
+
+            return (aSort === bSort) ? false : aSort > bSort ? direction : direction * -1;
+
         })
-        this.sorted[level1][level2] = !isSorted;
+
+        this.sortedCondition[level1][level2] = !isSorted;
 
         updateArrayEstablishment(sorted)
     }
@@ -69,14 +74,13 @@ class SortTable extends Component {
 
     render() {
 
-        const { establishment: {establishmentSelect }, details: restaurantDetails = {} } = this.props
-        console.log(establishmentSelect);
+        const { restaurantDetails, establishment: {establishmentSelect } } = this.props
         //console.log("loadInfo",restaurantDetails);
         return (
                 <div>
                     <h1>Establishments info</h1>
                 <div>
-                  <InfoEstablishment restaurantDetails={restaurantDetails}/>
+                    <InfoEstablishment restaurantDetails={restaurantDetails} />
                 </div>
                 <table className="currency-table">
                     <thead>
@@ -111,7 +115,7 @@ class SortTable extends Component {
 export default connect((state) => ({
    establishment: stateSelector(state),
    establishmentSelect: currentSelector(state),
-   details: restaurantDetailsSelection,
+   restaurantDetails: restaurantDetailsSelector(state),
    selectedEvent: selectedEventSelector(state)
 }),{updateArrayEstablishment, loadInfoEstablishment, loadCoordinate})(SortTable)
 

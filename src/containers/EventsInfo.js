@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 //import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { calculateDistance, commaToPointReplace } from '../share/share'
-import {coordinateSelection} from '../reducer/details'
+import {coordinateSelector} from '../reducer/details'
 import {stateSelector as eventSelector} from '../reducer/events'
 
 const Item = ({children}) => ( <td className="item">{children}</td> )
@@ -16,15 +16,15 @@ class EventsInfo extends Component {
 
     render() {
 
-        const { events: {eventsSelect}, details: {coordinate = {}} } = this.props
+        const { events: { eventsSelect = {}}, details: {latitude, longitude} } = this.props
         let eventsSelectWithCoordinate = {};
-        if (!eventsSelect || !eventsSelectWithCoordinate) {
-            return null
-        } else {
-            const {latitude, longitude} = coordinate;
+        if (eventsSelect.length > 0) {
             eventsSelectWithCoordinate = eventsSelect.filter((event) => {
                 return calculateDistance(+commaToPointReplace(event.location.latitude), +commaToPointReplace(event.location.longitude), +commaToPointReplace(latitude), +commaToPointReplace(longitude)) < 1
             })
+        } else {
+                return null
+        }
 
             return (
                 <div>
@@ -42,7 +42,7 @@ class EventsInfo extends Component {
                         eventsSelectWithCoordinate.map(({trcid, title, location: {city, zipcode, adress}}, index) => {
                             return <tr key={index + trcid}>
                                 {[title, city + ' ' + zipcode + ' ' + adress].map((item, index) => {
-                                    return <Item key={index}>{item}</Item>
+                                    return <Item key={index + item}>{item}</Item>
                                 })}
 
                             </tr>
@@ -53,12 +53,11 @@ class EventsInfo extends Component {
                 </table>
                 </div>
             )
-        }
     }
 }
 
 export default connect((state) => ({
    events: eventSelector(state),
-   details: coordinateSelection(state)
+   details: coordinateSelector(state)
 }))(EventsInfo)
 

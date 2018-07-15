@@ -5,13 +5,15 @@ import get from "lodash/get";
 import {createSelector} from 'reselect';
 import {merge} from '../utils';
 
-export default (state, action) => {
+const initialState = {}
+export default (state = initialState, action) => {
     const {type, payload} = action
 
     switch (type) {
         case REQUEST + EVENT:
             return {
-                ...state, eventsSelect: payload
+                ...state,
+                eventsSelect: payload
             }
         default:
             return state;

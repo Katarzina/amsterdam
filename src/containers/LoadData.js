@@ -11,8 +11,6 @@ import SortTable from './SortTable'
 import {
     REQUEST, ESTABLISHMENT, EVENT
 } from '../constants'
-//import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
-
 
 class LoadData extends React.Component {
 

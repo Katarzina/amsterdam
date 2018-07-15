@@ -5,6 +5,7 @@ import {updateFilterEstablishment} from '../action'
 import {stateSelector, currentSelector} from '../reducer/establishment'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import { filterByTitle } from '../share/share'
 
 // array Cities from json object
 
@@ -32,14 +33,25 @@ class SearchBarCity extends Component {
     }
 
     handleChange = (selectedOption) => {
-        const {establishment: {dataUnchangable, establishmentSelect}, updateFilterEstablishment} = this.props;
+        const {establishment: {dataUnchangable, establishmentSelect, filterTitle}, updateFilterEstablishment} = this.props;
+
+        let dataForChange = dataUnchangable;
+
+        if (filterTitle) {
+            dataForChange = filterByTitle(dataUnchangable, filterTitle)
+        }
+        if (selectedOption.length === 0) {
+            updateFilterEstablishment(dataForChange);
+            this.setState({selectedOption});
+            return false;
+        }
         this.setState({selectedOption});
         let joinEstablishment = [], filterEstablishment = [];
         // selectedOption can be null when the `x` (close) button is clicked
         if (selectedOption) {
             selectedOption.forEach((option) => {
 
-                filterEstablishment = dataUnchangable.filter(({location: {city}}) => {
+                filterEstablishment = dataForChange.filter(({location: {city}}) => {
                     return city.toLowerCase().includes(option.value.toLowerCase());
                 })
 
@@ -57,7 +69,6 @@ class SearchBarCity extends Component {
         const { selectedOption } = this.state;
         const optionsValue = [];
         cities.forEach( item => optionsValue.push({ value: item, label: item }))
-       // console.log(optionsValue)
         return (
             <div>
             <Select

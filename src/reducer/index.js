@@ -7,6 +7,7 @@ const rootReducer = combineReducers({
 	establishment,
 	details,
 	events
+
 });
 
 export default rootReducer;

@@ -16,3 +16,9 @@ const toRad = (value) => value * Math.PI / 180;
 
 export const commaToPointReplace = (jsonString = "") => jsonString.replace(',','.');
 
+export let filterByTitle = ( data, value ) => {
+    return data.filter(({title}) => {
+        return title.toLowerCase().includes(value);
+    })
+}
+

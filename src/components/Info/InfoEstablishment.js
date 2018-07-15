@@ -10,15 +10,12 @@ const InfoEstablishment = ({restaurantDetails}) => {
     if (!mediaArray) return null
 
 		return <div className="row">
-               <div className="col-md-3">
-                   {title} {city}  {adress} {zipCode}
+               <div className="col-md-6">
+                   {title} {city}  {adress} {zipCode} {urls}
                </div>
-               <ul className="col-md-6">
-                {mediaArray.map((item, index) => <img src={item.url} alt={title} width='100' />)}
-               </ul>
-               <ul className="col-md-3">
-                   {urls}
-               </ul>
+               <div className="col-md-6">
+                {mediaArray.map((item, index) => <img key={item+index} src={item.url} alt={title} width='100' />)}
+               </div>
         </div>
 }
 

@@ -20,14 +20,4 @@ const App = () => {
     );
 }
 
-
-/*const App = () => {
-    return (
-        <div style={{width: '100%', height: '400px'}}>
-            <DoctorMapContainer />
-        </div>
-    );
-}*/
-
-
 export default App;

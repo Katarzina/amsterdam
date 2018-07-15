@@ -7,6 +7,8 @@ export const FILTER = '_FILTER'
 export const LOAD = 'LOAD'
 export const INFO = '_INFO'
 export const COORDINATE = '_COORDINATE'
+export const TITLE = '_TITLE'
+export const CITY = '_CITY'
 
 
 

@@ -1,10 +1,11 @@
 import {
     LOAD, INFO, COORDINATE
 } from '../constants';
+import get from "lodash/get"
+import {createSelector} from 'reselect'
 
-export default (state, action) => {
+export default (state = null, action) => {
     const {type, payload} = action
-    //console.log(type, payload)
     switch (type) {
         case LOAD + INFO:
             return {
@@ -21,6 +22,6 @@ export default (state, action) => {
     }
 };
 
-export const coordinateSelection = (state) => state['details'];
-export const restaurantDetailsSelection = (state) => state['details.restaurantDetails'];
-
+export const stateSelector = (state) => get(state, 'details', {});
+export const restaurantDetailsSelector = createSelector(stateSelector, (reducer) => get(reducer, 'restaurantDetails', {}));
+export const coordinateSelector = createSelector(stateSelector, (reducer) => get(reducer, 'coordinate', {}));

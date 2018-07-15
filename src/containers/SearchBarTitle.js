@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {updateFilterEstablishment} from '../action'
+import {updateFilterEstablishment, updateTitle} from '../action'
 import {stateSelector, currentSelector} from '../reducer/establishment'
-
+import { filterByTitle } from '../share/share'
 
 class SearchBarTitle extends Component {
 
@@ -13,11 +13,10 @@ class SearchBarTitle extends Component {
     }
 
     dataSearch = e => {
-        const { establishment: {dataUnchangable, establishmentSelect}, updateFilterEstablishment } = this.props;
+        const { establishment: {dataUnchangable, establishmentSelect}, updateFilterEstablishment, updateTitle } = this.props;
         const value = e.target.value.toLowerCase();
-        let filterEstablishment = dataUnchangable.filter( ({title}) => {
-            return title.toLowerCase().includes(value);
-        });
+        const filterEstablishment = filterByTitle(dataUnchangable, value);
+        updateTitle(value);
         updateFilterEstablishment(filterEstablishment);
     };
 
@@ -38,4 +37,4 @@ class SearchBarTitle extends Component {
 export default connect((state) => ({
     establishment: stateSelector(state),
     establishmentSelect: currentSelector(state),
-}),{updateFilterEstablishment})(SearchBarTitle)
+}),{updateFilterEstablishment, updateTitle})(SearchBarTitle)

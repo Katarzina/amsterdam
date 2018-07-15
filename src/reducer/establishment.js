@@ -1,5 +1,5 @@
 import {
-    REQUEST, UPDATE, ESTABLISHMENT, EVENT, FILTER, LOAD, INFO, COORDINATE
+    REQUEST, UPDATE, ESTABLISHMENT, TITLE, FILTER, CITY
 } from '../constants';
 import {createSelector} from 'reselect'
 
@@ -9,7 +9,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const {type, payload} = action
-    //console.log(type, payload)
     switch (type) {
         case REQUEST + ESTABLISHMENT:
             return {
@@ -17,11 +16,6 @@ export default (state = initialState, action) => {
                 establishmentSelect: payload,
                 dataUnchangable: payload,
                 isLoaded: true,
-            }
-        case REQUEST + EVENT:
-            return {
-                ...state,
-                eventsSelect: payload
             }
         case UPDATE + ESTABLISHMENT:
             return {
@@ -33,18 +27,11 @@ export default (state = initialState, action) => {
                 ...state,
                 establishmentSelect: payload
             }
-        case LOAD + INFO:
+        case UPDATE + FILTER + TITLE:
             return {
                 ...state,
-                restaurantDetails: payload
+                filterTitle: payload
             }
-        case LOAD + COORDINATE:
-            return {
-                ...state,
-                coordinate: payload
-            }
-
-
         default:
             return state;
     }
@@ -52,6 +39,5 @@ export default (state = initialState, action) => {
 
 export const stateSelector = (state) => state['establishment'];
 export const currentSelector = createSelector(stateSelector, (establishment) => establishment['establishmentSelect']);
-export const eventSelector = createSelector(stateSelector, (establishment) => establishment['eventSelect']);
 
 
