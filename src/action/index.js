@@ -1,5 +1,5 @@
 import {
-    UPDATE, ESTABLISHMENT, FILTER, LOAD, INFO, COORDINATE, TITLE, CITY
+    UPDATE, ESTABLISHMENT, FILTER, LOAD, INFO, COORDINATE, TITLE
 } from '../constants'
 
 const A = (type) => (payload) => ({ type, payload });

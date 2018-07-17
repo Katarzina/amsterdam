@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { calculateDistance, commaToPointReplace } from '../share/share'
 import {coordinateSelector} from '../reducer/details'
@@ -8,11 +8,11 @@ import {stateSelector as eventSelector} from '../reducer/events'
 const Item = ({children}) => ( <td className="item">{children}</td> )
 
 class EventsInfo extends Component {
-    /*static propTypes = {
-        currencyRate: PropTypes.array,
-        rate: PropTypes.object,
-        updateRate: PropTypes.func
-    }*/
+    propTypes = {
+        eventsSelect: PropTypes.object,
+        latitude: PropTypes.string,
+        longitude: PropTypes.string
+    }
 
     render() {
 

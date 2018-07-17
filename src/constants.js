@@ -8,9 +8,6 @@ export const LOAD = 'LOAD'
 export const INFO = '_INFO'
 export const COORDINATE = '_COORDINATE'
 export const TITLE = '_TITLE'
-export const CITY = '_CITY'
-
-
 
 // DATA
 export const DATA_ESTABLISHMENT = './data/establishment-data.json'

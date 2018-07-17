@@ -3,7 +3,6 @@ import {
 } from '../constants';
 import get from "lodash/get";
 import {createSelector} from 'reselect';
-import {merge} from '../utils';
 
 const initialState = {}
 export default (state = initialState, action) => {

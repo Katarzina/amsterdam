@@ -10,20 +10,23 @@ const InfoEstablishment = ({restaurantDetails}) => {
     if (!mediaArray) return null
 
 		return <div className="row">
-               <div className="col-md-6">
-                   {title} {city}  {adress} {zipCode} {urls}
-               </div>
-               <div className="col-md-6">
+            <div className="col-md-6">
+                {title} {city}  {adress} {zipCode} {urls}
+            </div>
+            <div className="col-md-6">
                 {mediaArray.map((item, index) => <img key={item+index} src={item.url} alt={title} width='100' />)}
-               </div>
+            </div>
         </div>
 }
 
 
-/*InfoEstablishment.propTypes = {
-    value: PropTypes.string,
-    currency: PropTypes.string,
-    rate: PropTypes.number
-}*/
+InfoEstablishment.propTypes = {
+    restaurantDetails: PropTypes.object,
+    title: PropTypes.string,
+    city: PropTypes.string,
+    adress: PropTypes.string,
+    urls: PropTypes.string,
+    media: PropTypes.array
+}
 
 export default InfoEstablishment

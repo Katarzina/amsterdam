@@ -1,20 +1,22 @@
 import React, {Component} from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { updateArrayEstablishment, loadInfoEstablishment, loadCoordinate } from '../action'
 import {connect} from 'react-redux'
 import {stateSelector, currentSelector} from '../reducer/establishment'
-import {restaurantDetailsSelector, coordinate} from '../reducer/details'
+import {restaurantDetailsSelector} from '../reducer/details'
 import InfoEstablishment from '../components/Info/InfoEstablishment'
-import { selectedEventSelector } from "../reducer/events";
+import { selectedEventSelector } from '../reducer/events';
 
 const Item = ({children}) => ( <td className="item">{children}</td> )
 
 class SortTable extends Component {
-    /*static propTypes = {
-        currencyRate: PropTypes.array,
-        rate: PropTypes.object,
-        updateRate: PropTypes.func
-    }*/
+    propTypes = {
+        restaurantDetails: PropTypes.object,
+        establishmentSelect: PropTypes.object,
+        updateArrayEstablishment: PropTypes.func,
+        loadInfoEstablishment: PropTypes.func,
+        loadCoordinate: PropTypes.func
+    }
 
     sortedCondition = { location: { zipcode: true }, dates: { startdate: true }  }
 
@@ -42,7 +44,7 @@ class SortTable extends Component {
 
                 const arraySplit = aString => aString.split('-')
 
-                const checkType = value => (typeof value == 'undefined') ? new Date(1970, 0, 1) :
+                const checkType = value => (typeof value === 'undefined') ? new Date(1970, 0, 1) :
                                            (typeof value === 'string') ? ( ((value.includes('-'))) ?
                                            (valueArray = arraySplit(value), new Date(+valueArray[2], +valueArray[1], +valueArray[0]))
                                            : value ) : value;
@@ -75,7 +77,6 @@ class SortTable extends Component {
     render() {
 
         const { restaurantDetails, establishment: {establishmentSelect } } = this.props
-        //console.log("loadInfo",restaurantDetails);
         return (
                 <div>
                     <h1>Establishments info</h1>

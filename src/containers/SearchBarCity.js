@@ -15,7 +15,7 @@ const getArrayCity = ( data ) => {
         return city;
     });
     resultArrayCity.forEach( item => {
-            (resultArrayCity.includes(item) && !arrayCity.includes(item)) ? arrayCity.push(item): null;
+            return !arrayCity.includes(item) ? arrayCity.push(item): null;
         }
     )
     return arrayCity
@@ -29,11 +29,11 @@ class SearchBarCity extends Component {
 
     PropTypes = {
         updateFilterEstablishment: PropTypes.func,
-        establishmentSelect: PropTypes.array
+        dataUnchangable: PropTypes.object
     }
 
     handleChange = (selectedOption) => {
-        const {establishment: {dataUnchangable, establishmentSelect, filterTitle}, updateFilterEstablishment} = this.props;
+        const {establishment: {dataUnchangable, filterTitle}, updateFilterEstablishment} = this.props;
 
         let dataForChange = dataUnchangable;
 
